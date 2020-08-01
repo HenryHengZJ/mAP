@@ -32,6 +32,9 @@ for filename in os.listdir(train_dir):
         # Check if img file exist
         imagefile = getImageFile(filename)
         if imagefile == None: continue
+        image_path = train_dir + "/" + imagefile
+        image = cv2.imread(image_path)
+        h, w = image.shape[:2]
 
         # Reading text file
         with open(train_dir + "/" + filename) as iostream:
@@ -41,12 +44,6 @@ for filename in os.listdir(train_dir):
         for line in content.split("\n"):
             if line != "":
                 classID, x, y, width, height = line.split(" ")
-             
-                image_path = train_dir + "/" + imagefile
-
-                image = cv2.imread(image_path)
-                h, w = image.shape[:2]
-
                 className = classes[int(classID)]
 
                 bbox_width = float(width) * w
